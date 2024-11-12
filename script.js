@@ -134,3 +134,47 @@ logoutBtn.addEventListener('click', () => {
     updateButtonVisibility();
     alert('You have been logged out.');
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const username = localStorage.getItem("username");
+    const email = localStorage.getItem("email");
+    const phone = localStorage.getItem("phone");
+
+    if (username && email && phone) {
+        document.getElementById("username").textContent = username;
+        document.getElementById("email").textContent = email;
+        document.getElementById("phone").textContent = phone;
+    } else {
+        alert("No user information available.");
+        window.location.href = "index.html"; // Redirect to home if no data
+    }
+
+    // Log out functionality
+    document.getElementById("logout-btn").addEventListener("click", function () {
+        localStorage.removeItem("username");
+        localStorage.removeItem("email");
+        localStorage.removeItem("phone");
+        window.location.href = "index.html";
+    });
+});
+
+// Assuming login button and form elements are defined
+document.getElementById("login-btn").addEventListener("click", function (event) {
+    event.preventDefault();
+    
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+
+    if (username && email && phone) {
+        // Save user data to localStorage
+        localStorage.setItem("username", username);
+        localStorage.setItem("email", email);
+        localStorage.setItem("phone", phone);
+
+        // Redirect to the contact information page
+        window.location.href = "contact-info.html";
+    } else {
+        alert("Please enter all required fields.");
+    }
+});
