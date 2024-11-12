@@ -1,4 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", function () {
+    // Check if the current page is one that requires login (like the contact info page)
+    if (window.location.pathname === '/contact-info.html' || window.location.pathname === '/other-secure-page.html') {
+        const loggedInUser = localStorage.getItem('loggedInUser');
+
+        // If user is not logged in, redirect to the login page
+        if (!loggedInUser) {
+            window.location.href = "index.html";  // Redirect to the login page
+        } else {
+            // User is logged in, display their info or proceed
+            const username = localStorage.getItem("username");
+            const email = localStorage.getItem("email");
+            const phone = localStorage.getItem("phone");
+
+            if (username && email && phone) {
+                document.getElementById("username").textContent = username;
+                document.getElementById("email").textContent = email;
+                document.getElementById("phone").textContent = phone;
+            } else {
+                alert("No user information available.");
+                window.location.href = "index.html"; // Redirect to home if no data
+            }
+        }
+    }
+
+    // Code to handle dark/light mode toggle
     const body = document.body;
     const header = document.getElementById('header-container');
     const toggleThemeButton = document.getElementById('toggle-theme');
@@ -15,18 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleThemeButton.textContent = isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode';
         localStorage.setItem('darkMode', isDarkMode);
     });
+
+    // Update login/logout button visibility
+    updateButtonVisibility();
 });
 
-// Get modal and buttons
-const modal = document.getElementById('auth-modal');
-const openModalBtn = document.getElementById('open-modal-btn');
-const closeModalBtn = document.getElementById('close-modal-btn');
-const showRegisterBtn = document.getElementById('show-register');
-const showLoginBtn = document.getElementById('show-login');
-const logoutBtn = document.getElementById('logout-btn');
-
+// Function to update visibility of login/logout buttons
 function updateButtonVisibility() {
     const loggedInUser = localStorage.getItem('loggedInUser');
+    const openModalBtn = document.getElementById('open-modal-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+
     if (loggedInUser) {
         openModalBtn.style.display = 'none';
         logoutBtn.style.display = 'block';
@@ -36,145 +60,10 @@ function updateButtonVisibility() {
     }
 }
 
-updateButtonVisibility();
-
-openModalBtn.addEventListener('click', () => {
-    modal.style.display = 'block';
-});
-
-closeModalBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
-
-showRegisterBtn.addEventListener('click', () => {
-    document.getElementById('login-form-container').style.display = 'none';
-    document.getElementById('register-form-container').style.display = 'block';
-});
-
-showLoginBtn.addEventListener('click', () => {
-    document.getElementById('register-form-container').style.display = 'none';
-    document.getElementById('login-form-container').style.display = 'block';
-});
-
-window.addEventListener('click', (event) => {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
-
-// Validation function
-function validateForm(username, email, password, phone) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\d{7}$/;
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
-    if (!username || !email || !password || !phone) {
-        alert("All fields are required.");
-        return false;
-    }
-    if (!emailRegex.test(email)) {
-        alert("Please enter a valid email address.");
-        return false;
-    }
-    if (!phoneRegex.test(phone)) {
-        alert("Phone number must be 10 digits.");
-        return false;
-    }
-    if (!passwordRegex.test(password)) {
-        alert("Password must be at least 8 characters long and include both letters and numbers.");
-        return false;
-    }
-    return true;
-}
-
-// Handle login form submission
-document.getElementById('login-form').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const email = document.getElementById('login-email').value.trim();
-    const password = document.getElementById('login-password').value.trim();
-    const userData = JSON.parse(localStorage.getItem(email));
-
-    if (userData && userData.password === password) {
-        alert(`Welcome back, ${userData.username}!`);
-        localStorage.setItem('loggedInUser', email);
-        modal.style.display = 'none';
-        updateButtonVisibility();
-    } else {
-        alert('Invalid email or password.');
-    }
-});
-
-// Handle registration form submission
-document.getElementById('registration-form').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const username = document.getElementById('register-username').value.trim();
-    const email = document.getElementById('register-email').value.trim();
-    const password = document.getElementById('register-password').value.trim();
-    const phone = document.getElementById('register-phone').value.trim();
-
-    if (!validateForm(username, email, password, phone)) return;
-
-    if (localStorage.getItem(email)) {
-        alert('User already exists. Please choose a different email.');
-        return;
-    }
-
-    const userData = { username, email, password, phone };
-    localStorage.setItem(email, JSON.stringify(userData));
-
-    alert('Registration successful! You can now log in.');
-    modal.style.display = 'none';
-});
-
 // Handle log out
-logoutBtn.addEventListener('click', () => {
-    localStorage.removeItem('loggedInUser');
+document.getElementById("logout-btn").addEventListener("click", function () {
+    localStorage.removeItem("loggedInUser");
     updateButtonVisibility();
     alert('You have been logged out.');
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const username = localStorage.getItem("username");
-    const email = localStorage.getItem("email");
-    const phone = localStorage.getItem("phone");
-
-    if (username && email && phone) {
-        document.getElementById("username").textContent = username;
-        document.getElementById("email").textContent = email;
-        document.getElementById("phone").textContent = phone;
-    } else {
-        alert("No user information available.");
-        window.location.href = "index.html"; // Redirect to home if no data
-    }
-
-    // Log out functionality
-    document.getElementById("logout-btn").addEventListener("click", function () {
-        localStorage.removeItem("username");
-        localStorage.removeItem("email");
-        localStorage.removeItem("phone");
-        window.location.href = "index.html";
-    });
-});
-
-// Assuming login button and form elements are defined
-document.getElementById("login-btn").addEventListener("click", function (event) {
-    event.preventDefault();
-    
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const phone = document.getElementById("phone").value;
-
-    if (username && email && phone) {
-        // Save user data to localStorage
-        localStorage.setItem("username", username);
-        localStorage.setItem("email", email);
-        localStorage.setItem("phone", phone);
-
-        // Redirect to the contact information page
-        window.location.href = "contact-info.html";
-    } else {
-        alert("Please enter all required fields.");
-    }
+    window.location.href = "index.html";  // Redirect to login page after logout
 });
