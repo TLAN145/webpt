@@ -10,18 +10,20 @@
 <body>
     <header id="header-container" class="bg-warning text-center py-3">
         <h1 class="main-title">Contact Us</h1>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button id="toggle-theme" class="btn btn-outline-dark my-2">Switch to Dark Mode</button> <!-- Theme toggle button -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="recipe.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
     </header>
+    
 
     <main class="container my-4">
         <section id="contact">
@@ -42,6 +44,10 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Send Message</button>
             </form>
+            <button id="getFoodImageBtn">Get Random Food Image</button>
+            <div id="foodImageContainer">
+                <img id="foodImage" src="" alt="Random Food" style="display: none;">
+            </div>
             <h2 class="mt-4">Rate Us:</h2>
             <div id="rating-stars">
                 <span class="star" data-value="1">★</span>
@@ -69,5 +75,6 @@
     <script src="script.js"></script>
     <script src="script2.js"></script>
     <script src="kb.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
