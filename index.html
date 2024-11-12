@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Website</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header id="header-container" class="bg-warning text-center py-3">
+        <h1 class="main-title">My Recipe Website</h1>
+        <button id="toggle-theme" class="btn btn-outline-dark my-2">Switch to Dark Mode</button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="about.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+                </ul>
+            </div>
+            <button id="open-modal-btn" class="btn btn-success">Log In / Register</button>
+            <button id="logout-btn" style="display: none;" class="btn btn-danger">Log Out</button>
+        </nav>
+    </header>
+
+    <main class="container my-4">
+        <!-- Search and Filter Section -->
+        <section class="search-filter-section mb-4">
+            <h2 class="section-title">Find a Dish</h2>
+            <input type="text" id="search-bar" class="form-control mb-2" placeholder="Search for a dish...">
+            <select id="filter-type" class="form-control">
+                <option value="">Filter by type</option>
+                <option value="pasta">Pasta</option>
+                <option value="pizza">Pizza</option>
+                <option value="shawarma">Shawarma</option>
+            </select>            
+        </section>
+
+        <!-- Dish List -->
+        <section class="row" id="dish-list">
+            <!-- Pasta Dishes -->
+            <div class="col-md-4 dish-card" data-type="pasta">
+                <h3>Spaghetti Carbonara</h3>
+                <a href="spaghetti.html">
+                    <img src="spgt.jpg" alt="Spaghetti Carbonara" class="img-fluid">
+                </a>
+                <p>A classic Italian pasta dish.</p>
+            </div>
+            <div class="col-md-4 dish-card" data-type="pasta">
+                <h3>Penne Arrabbiata</h3>
+                <a href="penne-arrabbiata.html">
+                    <img src="pa.jpg" alt="Penne Arrabbiata" class="img-fluid">
+                </a>
+                <p>Spicy and savory pasta dish.</p>
+            </div>
+
+            <!-- Pizza Dishes -->
+            <div class="col-md-4 dish-card" data-type="pizza">
+                <h3>Margherita Pizza</h3>
+                <a href="margherita-pizza.html">
+                    <img src="pm.jpg" alt="Margherita Pizza" class="img-fluid">
+                </a>
+                <p>Classic pizza with mozzarella and basil.</p>
+            </div>
+            <div class="col-md-4 dish-card" data-type="pizza">
+                <h3>Pepperoni Pizza</h3>
+                <a href="pepperoni-pizza.html">
+                    <img src="pp.jpg" alt="Pepperoni Pizza" class="img-fluid">
+                </a>
+                <p>A popular pizza topped with pepperoni.</p>
+            </div>
+
+            <!-- Shawarma Dishes -->
+            <div class="col-md-4 dish-card" data-type="shawarma">
+                <h3>Chicken Shawarma</h3>
+                <a href="chicken-shawarma.html">
+                    <img src="csh.jpg" alt="Chicken Shawarma" class="img-fluid">
+                </a>
+                <p>Middle Eastern style chicken wrap.</p>
+            </div>
+            <div class="col-md-4 dish-card" data-type="shawarma">
+                <h3>Beef Shawarma</h3>
+                <a href="beef-shawarma.html">
+                    <img src="bsh.jpg" alt="Beef Shawarma" class="img-fluid">
+                </a>
+                <p>Delicious beef wrap with spices.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer-container" class="bg-warning text-center py-3">
+        <p>Created by [Temirlan Askar] - 2024</p>
+        <p>Contact: <a href="mailto:meem10800@gmail.com" class="footer-link">meem10800@gmail.com</a></p>
+    </footer>
+
+    <!-- Authentication Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal-btn" class="close">&times;</span>
+            <div id="login-form-container">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <button id="show-register" class="btn btn-link">Don't have an account? Register</button>
+            </div>
+            <div id="register-form-container" style="display: none;">
+                <h2>Register</h2>
+                <form id="registration-form">
+                    <input type="text" id="register-username" placeholder="Username" required>
+                    <input type="email" id="register-email" placeholder="Email" required>
+                    <input type="password" id="register-password" placeholder="Password" required>
+                    <input type="text" id="register-phone" placeholder="Phone Number" required>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+                <button id="show-login" class="btn btn-link">Already have an account? Log in</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script src="kb.js"></script>
+</body>
+</html>
