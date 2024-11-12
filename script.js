@@ -65,7 +65,7 @@ window.addEventListener('click', (event) => {
 // Validation function
 function validateForm(username, email, password, phone) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\d{7}$/;
+    const phoneRegex = /^\d{10}$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
     if (!username || !email || !password || !phone) {
@@ -77,7 +77,7 @@ function validateForm(username, email, password, phone) {
         return false;
     }
     if (!phoneRegex.test(phone)) {
-        alert("Phone number must be 7 digits.");
+        alert("Phone number must be 10 digits.");
         return false;
     }
     if (!passwordRegex.test(password)) {
